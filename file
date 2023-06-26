@@ -1,0 +1,14 @@
+#!usr/bin/bash
+RUN for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+RUN sudo apt-get update
+RUN sudo apt-get install ca-certificates curl gnupg
+RUN sudo install -m 0755 -d /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN sudo chmod a+r /etc/apt/keyrings/docker.gpg
+RUN sudo apt-get update
+RUN sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+RUN sudo docker run hello-world
+RUN sudo service docker start
+RUN sudo docker run hello-world
+RUN docker pull ubuntu
+RUN docker run -it ubuntu:latest
